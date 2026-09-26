@@ -11,6 +11,7 @@ from starlette.responses import JSONResponse
 from starlette.routing import Mount, Route
 
 from app.services.whatsapp_service import WhatsAppError, WhatsAppService
+from app.capability_bind import bind_declared_capabilities
 
 mcp = FastMCP(
     name="whatsapp",
@@ -95,6 +96,9 @@ Outputs: success
     except WhatsAppError as e:
         return {"success": False, "error": e.to_dict()}
 
+
+
+bind_declared_capabilities(mcp)
 
 _base_app = mcp.http_app()
 
